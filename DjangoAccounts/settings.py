@@ -138,3 +138,8 @@ AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+
+
+# Logout config
+
+LOGOUT_REDIRECT_URL = 'login'
