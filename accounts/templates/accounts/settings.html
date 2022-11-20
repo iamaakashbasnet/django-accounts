@@ -7,4 +7,15 @@
     {{ form.as_p }}
     <button type="submit">Update</button>
   </form>
+
+  <br />
+
+  <details>
+    <summary style="cursor: pointer;">Password</summary>
+    <form method="POST">
+      {% csrf_token %}
+      {{ pass_form.as_p }}
+      <button type="submit">Change Password</button>
+    </form>
+  </details>
 {% endblock content %}
