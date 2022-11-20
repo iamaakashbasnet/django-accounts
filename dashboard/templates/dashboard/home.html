@@ -2,4 +2,9 @@
 
 {% block content %}
 <h1>Home page</h2>
+<ul>
+    <li>Email: {{ request.user.email }}</li>
+    <li>Username: {{ request.user.username }}</li>
+    <li>Name: {{ request.user.first_name }} {{ request.user.last_name }}</li>
+</ul>
 {% endblock content %}
