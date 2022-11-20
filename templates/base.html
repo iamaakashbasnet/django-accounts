@@ -9,15 +9,32 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   </head>
   <body>
-    {% if messages %}
-      {% for message in messages %}
-        <div>
-          {{ message }}
+    <div>
+      {% if messages %}
+        {% for message in messages %}
+          <div>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if request.user.is_authenticated %}
+      <header>
+        <div style="display: flex; align-items:center; gap: 2rem;">
+          <h1>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}!</h1>
+          <p>
+            <a href="{% url 'home' %}">Home</a>&nbsp;|&nbsp;
+            <a href="{% url 'settings' %}">Settings</a>&nbsp;|&nbsp;
+            <a href="{% url 'logout' %}">Logout</a> 
+          </p>
         </div>
-      {% endfor %}
+      </header>
     {% endif %}
 
-    {% block content %}{% endblock content %}
+    <main>
+      {% block content %}{% endblock content %}
+    </main>
     <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

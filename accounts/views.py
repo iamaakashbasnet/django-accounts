@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .forms import UserCreationForm
+from .forms import UserCreationForm, UserUpdateForm
 
 
 def signup(request):
@@ -19,3 +19,17 @@ def signup(request):
             form = UserCreationForm()
 
         return render(request, 'accounts/signup.html', {'form': form})
+
+
+def settings(request):
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been updated.')
+            return redirect('home')
+    else:
+        form = UserUpdateForm(instance=request.user)
+
+    return render(request, 'accounts/settings.html', {'form': form})
