@@ -10,6 +10,8 @@ urlpatterns = [
     path('signup/', accounts_views.signup, name='signup'),
     path('settings/', accounts_views.settings, name='settings'),
     path('delete/', accounts_views.delete_account, name='delete-account'),
+    path('activate/<uidb64>/<token>/',
+         accounts_views.activate_account, name='activate'),
 
     path('password-reset/', auth_views.PasswordResetView.as_view(
         template_name='accounts/password_reset.html'), name='password_reset'),
