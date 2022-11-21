@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
 
 from .forms import (
     UserCreationForm,
@@ -26,6 +27,7 @@ def signup(request):
         return render(request, 'accounts/signup.html', {'form': form})
 
 
+@login_required
 def settings(request):
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, instance=request.user)
