@@ -12,7 +12,9 @@ from .forms import (
 )
 
 
-User = get_user_model()
+@login_required()
+def home(request):
+    return render(request, 'accounts/dashboard/home.html', {})
 
 
 def signup(request):
@@ -68,7 +70,8 @@ def delete_account(request):
 
         if form.is_valid():
             try:
-                _user = get_object_or_404(User, username=request.user.username)
+                _user = get_object_or_404(
+                    get_user_model(), username=request.user.username)
                 _user.delete()
                 messages.success(request, 'User successfully deleted!')
                 return redirect('login')

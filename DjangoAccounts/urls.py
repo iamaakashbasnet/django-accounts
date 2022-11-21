@@ -18,9 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from accounts import views as accounts_views
+
 
 urlpatterns = [
-    path('', include('dashboard.urls')),
+    path('', accounts_views.home, name='home'),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
 ]
