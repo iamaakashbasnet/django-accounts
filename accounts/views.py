@@ -1,13 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 from .forms import (
     UserCreationForm,
     UserUpdateForm,
+    ConfirmPasswordForm,
 )
+
+
+User = get_user_model()
 
 
 def signup(request):
@@ -54,3 +59,23 @@ def settings(request):
         pass_form = PasswordChangeForm(request.user)
 
     return render(request, 'accounts/settings.html', {'form': form, 'pass_form': pass_form})
+
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        form = ConfirmPasswordForm(request.POST, request=request)
+
+        if form.is_valid():
+            try:
+                _user = get_object_or_404(User, username=request.user.username)
+                _user.delete()
+                messages.success(request, 'User successfully deleted!')
+                return redirect('login')
+            except:
+                messages.error(request, 'Something went wrong!')
+                return redirect('settings')
+
+    else:
+        form = ConfirmPasswordForm(request=request)
+    return render(request, 'accounts/delete_account_confirm.html', {'form': form})
