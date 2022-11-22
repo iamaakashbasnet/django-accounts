@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
 
 {% block content %}
   <form method="POST">
@@ -8,4 +9,6 @@
     Dont't have an account? <a href="{% url 'signup' %}">Signup</a> |
     <a href="{% url 'password_reset' %}">Forgot Password</a>
   </form>
+  <br />
+  <a href="{% provider_login_url "github" %}">Login with GitHub</a>
 {% endblock content %}

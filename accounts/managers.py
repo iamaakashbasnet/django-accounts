@@ -7,8 +7,6 @@ class UserManager(BaseUserManager):
             raise ValueError('User must have an email address.')
         if not username:
             raise ValueError('User must have an username.')
-        if not first_name and last_name:
-            raise ValueError('User must have a first name and last name.')
 
         email = self.normalize_email(email)
         user = self.model(email=email, username=username,
@@ -22,8 +20,6 @@ class UserManager(BaseUserManager):
             raise ValueError('User must have an email address.')
         if not username:
             raise ValueError('User must have an username.')
-        if not first_name and last_name:
-            raise ValueError('User must have a first name and last name.')
 
         email = self.normalize_email(email)
         extra_fields.setdefault('is_staff', True)
